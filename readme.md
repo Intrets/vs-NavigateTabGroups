@@ -31,3 +31,4 @@ It also assigns a default keyboard shortcut to `Tools.NavigateTabGroups.Previous
 - [Mackenzie Zastrow](https://github.com/zastrowm) - current maintainer
 - [Magnus Österlind](https://github.com/mrdooz) - [Original Creator](https://github.com/mrdooz/TabGroupJumperVSIX)
 - [Dongwoon Son](https://github.com/dplusic) - [Added support for VS2015+](https://github.com/dplusic/TabGroupJumperVSIX)
+- [Jonas Lomholdt](https://github.com/lomholdt) - [Added support for VS2019](https://github.com/zastrowm/vs-NavigateTabGroups/pull/9)

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="E637A336-69E4-4FB3-8A53-9492EBDAFB3B" Version="1.3.0" Language="en-US" Publisher="Mackenzie Zastrow" />
+        <Identity Id="E637A336-69E4-4FB3-8A53-9492EBDAFB3B" Version="1.4.0" Language="en-US" Publisher="Mackenzie Zastrow" />
         <DisplayName>Navigate Tab Groups</DisplayName>
         <Description xml:space="preserve">Exposes commands for navigating to different tab groups, allowing keyboard shortcuts to be assigned to each command</Description>
         <MoreInfo>https://github.com/zastrowm/vs-NavigateTabGroups</MoreInfo>
