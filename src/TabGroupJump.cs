@@ -245,6 +245,7 @@ namespace TabGroupJumperVSIX
       /// <summary> Get all of the Windows that have an associated frame. </summary>
       private IEnumerable<ActivePane> GetActivePanes(DTE2 dte)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         var framesAndAssociatedWindows = GetActiveWindowToFramesLookup(dte.ActiveWindow);
 
         foreach (var window in GetActiveWindows(dte))
@@ -269,6 +270,7 @@ namespace TabGroupJumperVSIX
       /// <summary> Get all known <see cref="IVsWindowFrame"/>, lazily, that are active/on-screen. </summary>
       private Dictionary<Window, IVsWindowFrame> GetActiveWindowToFramesLookup(Window activeWindow)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         var actives = from frame in GetFrames()
                       let window = VsShellUtilities.GetWindowObject(frame)
                       where window != null
@@ -317,6 +319,7 @@ namespace TabGroupJumperVSIX
     {
       public ActivePane(Window window, IVsWindowFrame associatedFrame)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         Window = window;
         AssociatedFrame = associatedFrame;
         Bounds = MeasureBounds();
