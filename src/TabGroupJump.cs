@@ -17,6 +17,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Platform.WindowManagement;
 using IServiceProvider = System.IServiceProvider;
+using Microsoft;
 
 namespace TabGroupJumperVSIX
 {
@@ -123,8 +124,10 @@ namespace TabGroupJumperVSIX
 
       protected TabGroupMover(IServiceProvider serviceProvider)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         _serviceProvider = serviceProvider;
         _uiShell = (IVsUIShell)serviceProvider.GetService(typeof(SVsUIShell));
+        Assumes.Present(_uiShell);
       }
 
       /// <summary>
@@ -151,7 +154,9 @@ namespace TabGroupJumperVSIX
       /// <param name="e"> Event information. </param>
       public void MenuItemCallback(object sender, EventArgs e)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         DTE2 dte = (DTE2)_serviceProvider.GetService(typeof(DTE));
+        Assumes.Present(dte);
         int commandId = ((MenuCommand)sender).CommandID.ID;
 
         var activePanes = GetActivePanes(dte).ToList();
@@ -203,13 +208,14 @@ namespace TabGroupJumperVSIX
       /// </summary>
       private static ActivePane LookupPaneByHierarchy(Window childWindow, List<ActivePane> activePanes)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         // welp, we're not directly in a document.  BUT, what if the window is inside of a
-        // document?  In that case, try to go up until we find a document pane that we know about. 
-        //        
+        // document?  In that case, try to go up until we find a document pane that we know about.
+        //
         // This happens for Project Property panes
-        var currentHwnd = new IntPtr(childWindow.HWnd);
+        var currentHwnd = childWindow.HWnd;
 
-        // max out at 20 just in case we keep going up and never find anything. 
+        // max out at 20 just in case we keep going up and never find anything.
         for (int i = 0; i < 20 && currentHwnd != IntPtr.Zero; i++)
         {
           currentHwnd = GetParent(currentHwnd);
@@ -226,7 +232,7 @@ namespace TabGroupJumperVSIX
         {
           foreach (var pane in activePanes)
           {
-            if (new IntPtr(pane.Window.HWnd) == searchHwnd)
+            if (pane.Window.HWnd == searchHwnd)
             {
               return pane;
             }
@@ -253,6 +259,7 @@ namespace TabGroupJumperVSIX
       /// <summary> Gets all of the windows that are currently positioned with a valid Top or Left. </summary>
       private IEnumerable<Window> GetActiveWindows(DTE2 dte)
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         // documents that are not the focused document in a group will have Top == 0 && Left == 0
         return from window in dte.Windows.Cast<Window>()
                where window.Kind == "Document"
@@ -280,6 +287,7 @@ namespace TabGroupJumperVSIX
       /// <summary> Get all known <see cref="IVsWindowFrame"/>, lazily. </summary>
       private IEnumerable<IVsWindowFrame> GetFrames()
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         var array = new IVsWindowFrame[1];
         _uiShell.GetDocumentWindowEnum(out var frames);
 
@@ -323,6 +331,7 @@ namespace TabGroupJumperVSIX
       /// <summary> Measure the bounds of the given window </summary>
       private RECT MeasureBounds()
       {
+        ThreadHelper.ThrowIfNotOnUIThread();
         var window = Window;
         var textView = VsShellUtilities.GetTextView(AssociatedFrame);
 
@@ -331,19 +340,19 @@ namespace TabGroupJumperVSIX
           return rect;
         }
 
-        if (Window.HWnd != 0 && GetWindowRect(new IntPtr(Window.HWnd), out var rect2))
+        if (Window.HWnd != IntPtr.Zero && GetWindowRect(Window.HWnd, out var rect2))
         {
           return rect2;
         }
 
-        // fallback where Top is wrong for windows that are vertically split. 
+        // fallback where Top is wrong for windows that are vertically split.
         return new RECT
-               {
-                 left = window.Left,
-                 right = window.Left + window.Width,
-                 top = window.Top,
-                 bottom = window.Top + window.Height
-               };
+        {
+          left = window.Left,
+          right = window.Left + window.Width,
+          top = window.Top,
+          bottom = window.Top + window.Height
+        };
       }
     }
 
@@ -360,9 +369,9 @@ namespace TabGroupJumperVSIX
                                                                ActivePane activePane)
       {
         return from pane in panes
-               // we always need the active window in the list
+                 // we always need the active window in the list
                where pane == activePane
-                 // only return those that are aligned vertically
+                     // only return those that are aligned vertically
                      || pane.Bounds.left == activePane.Bounds.left
                orderby pane.Bounds.top
                select pane;
@@ -386,9 +395,9 @@ namespace TabGroupJumperVSIX
                                                                ActivePane activePane)
       {
         return from pane in panes
-               // we always need the active window in the list
+                 // we always need the active window in the list
                where pane == activePane
-                 // only return those that aren't aligned vertically
+                     // only return those that aren't aligned vertically
                      || pane.Bounds.left != activePane.Bounds.left
                orderby pane.Bounds.left, pane.Bounds.top
                select pane;

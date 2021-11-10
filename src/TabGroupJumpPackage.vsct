@@ -135,14 +135,14 @@
 
   <KeyBindings>
     <KeyBinding guid="guidTabGroupJumpPackageCmdSet"
-                id="CommandIdJumpPrevious"
-                mod1="CONTROL ALT" key1="VK_LEFT"
-                editor="guidVSStd97" />
-      
+					id="CommandIdJumpPrevious"
+					mod1="CONTROL ALT" key1="VK_LEFT"
+					editor="guidVSStd97" />
+
     <KeyBinding guid="guidTabGroupJumpPackageCmdSet"
-                id="CommandIdJumpNext"
-                mod1="CONTROL ALT" key1="VK_RIGHT"
-                editor="guidVSStd97" />
+					id="CommandIdJumpNext"
+					mod1="CONTROL ALT" key1="VK_RIGHT"
+					editor="guidVSStd97" />
   </KeyBindings>
 
   <Symbols>

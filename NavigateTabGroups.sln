@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigateTabGroups", "src\NavigateTabGroups.csproj", "{9045B804-E28E-475B-8373-03A00AEB7C5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigateTabGroups", "src\NavigateTabGroups.csproj", "{E69A9408-070B-423B-978D-051EA6D8E3BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9045B804-E28E-475B-8373-03A00AEB7C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9045B804-E28E-475B-8373-03A00AEB7C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9045B804-E28E-475B-8373-03A00AEB7C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9045B804-E28E-475B-8373-03A00AEB7C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69A9408-070B-423B-978D-051EA6D8E3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69A9408-070B-423B-978D-051EA6D8E3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69A9408-070B-423B-978D-051EA6D8E3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69A9408-070B-423B-978D-051EA6D8E3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CC7611A-391A-436A-BEB2-03F64873C85E}
 	EndGlobalSection
 EndGlobal
