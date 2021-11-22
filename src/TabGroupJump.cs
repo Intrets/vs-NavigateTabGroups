@@ -15,7 +15,6 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Platform.WindowManagement;
 using IServiceProvider = System.IServiceProvider;
 using Microsoft;
 
@@ -270,12 +269,23 @@ namespace TabGroupJumperVSIX
       /// <summary> Get all known <see cref="IVsWindowFrame"/>, lazily, that are active/on-screen. </summary>
       private Dictionary<Window, IVsWindowFrame> GetActiveWindowToFramesLookup(Window activeWindow)
       {
+        bool IsOnScreenHelper(IVsWindowFrame frame)
+        {
+          ThreadHelper.ThrowIfNotOnUIThread();
+          int onScreen;
+          if (frame == null) return false;
+          if (frame.IsOnScreen(out onScreen) != VSConstants.S_OK) return false;
+          return onScreen != 0;
+        }
+
         ThreadHelper.ThrowIfNotOnUIThread();
+        var all = GetFrames();
         var actives = from frame in GetFrames()
                       let window = VsShellUtilities.GetWindowObject(frame)
                       where window != null
-                      where (frame as WindowFrame)?.OnScreen == true || window == activeWindow
+                      where IsOnScreenHelper(frame) || window == activeWindow
                       select new { window, frame };
+        var collllllect = actives.ToList();
 
         var windowToFrameLookup = new Dictionary<Window, IVsWindowFrame>();
         foreach (var active in actives)
