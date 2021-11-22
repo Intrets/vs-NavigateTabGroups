@@ -79,7 +79,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\TabGroupJump.png" />
-    <Content Include="TabGroupJumpPackage.ico">
+    <Content Include="Resources\TabGroupJumpPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
