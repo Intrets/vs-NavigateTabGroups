@@ -50,7 +50,7 @@
     <Compile Include="TabGroupJumpPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Packages.config" />
+    <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
